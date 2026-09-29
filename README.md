@@ -7,6 +7,8 @@
 > 玩偶依赖资源包中的自定义 Shader 来实现玩家皮肤渲染。根据 Iris 的 Shader 加载机制，启用光影包后，资源包中的自定义 Shader 将被忽略，并改用光影包提供的 Shader。  
 > 由于 PlayerDoll 的实现原理，该限制无法通过配置进行解决。
 
+![PlayerDoll Preview](image.png)
+
 ## 安装
 
 1. 将 PlayerDoll 文件夹整个放入：`plugins/CraftEngine/resources/`
