@@ -1,4 +1,4 @@
-# PlayerDoll
+# PlayerDoll [English](README_EN.md)
 一个基于 **Shader** 实现的玩家皮肤玩偶，无需额外添加皮肤贴图，即可实时显示玩家皮肤。  
 同时，你可以通过配置为玩偶添加自定义手持物品，让玩偶呈现更加丰富的效果。
 
