@@ -1,0 +1,5 @@
+author: PuddingKC
+version: 1.0.0
+description: A player skin doll implemented with shaders, with no additional textures required.
+namespace: playerdoll
+enable: true

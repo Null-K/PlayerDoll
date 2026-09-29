@@ -1,0 +1,286 @@
+# ______ _                      ______            _ 
+# | ___ | |                     |  _  \          | |
+# | |_/ | | __ _ _   _  ___ _ __| | | |___   ___ | |
+# |  __/| |/ _` | | | |/ _ | '__| | | / _ \ / _ \| |
+# | |   | | (_| | |_| |  __| |  | |/ | (_) | (_) | |
+# \_|   |_|\__,_|\__, |\___|_|  |___/ \___/ \___/|_|
+#                 __/ |                             
+#                |___/                              
+# by: PuddingKC
+# DC: @puddingkc
+# QQ: 3116078709
+#
+
+items:
+  playerdoll:player_doll:
+    material: player_head
+    data:
+      item_name: <!i>玩家玩偶
+      custom_name: <!i>玩家玩偶
+      profile: <arg:player.name>
+    oversized_in_gui: false
+    model:
+      type: minecraft:select
+      property: minecraft:display_context
+      cases:
+        - when: gui
+          model:
+            type: minecraft:special
+            path: minecraft:item/custom/player_doll_gui
+            generation:
+              parent: minecraft:item/template_skull
+              gui_light: front
+              display:
+                gui:
+                  rotation: 0,0,0
+                  translation: 0,0,0
+                  scale: 1,1,1
+            model:
+              type: minecraft:player_head
+            transformation:
+              left_rotation: 1,0,0,0
+              scale: 2,2,2
+              translation: 0.5,0,-999.5
+      fallback:
+        type: minecraft:special
+        path: minecraft:item/template_skull
+        model:
+          type: minecraft:player_head
+        transformation:
+          left_rotation: 1,0,0,0
+          scale: 1.6,2.1,1.45
+          translation: 0.5,-0.071875,0.5
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: any
+          alignment: center
+      furniture:
+        settings:
+          item: playerdoll:player_doll
+          hit_times: 1
+          sounds:
+            break: minecraft:block.wool.break
+            place: minecraft:block.wool.place
+            hit: minecraft:block.wool.hit
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.25,0
+            elements:
+              # 头
+              - type: item_display
+                item: playerdoll:doll_head
+                copy_data:
+                  - minecraft:profile
+                scale: 1,1,1
+                translation: 0.00049,0.375,-0.08719
+                rotation: 0,0,0
+              # 身体
+              - type: item_display
+                item: playerdoll:doll_limb
+                copy_data:
+                  - minecraft:profile
+                scale: 0.75,0.875,0.4375
+                translation: 0.00049,-1023.5625,-0.0814
+                rotation: 0,0,0
+              # 右臂
+              - type: item_display
+                item: playerdoll:doll_limb
+                copy_data:
+                  - minecraft:profile
+                scale: 0.25,0.75,0.3125
+                translation: -0.16809,-2047.60687,-0.08453
+                rotation: 0,0,-22.5
+              # 左臂
+              - type: item_display
+                item: playerdoll:doll_limb
+                copy_data:
+                  - minecraft:profile
+                scale: 0.25,0.75,0.3125
+                translation: 0.16809,-3071.60691,-0.08453
+                rotation: 0,0,22.5
+              # 右腿
+              - type: item_display
+                item: playerdoll:doll_limb
+                copy_data:
+                  - minecraft:profile
+                scale: 0.3125,0.6875,0.3125
+                translation: -0.0952,-4095.92188,-0.01029
+                rotation: -90,-22.5,0
+              # 左腿
+              - type: item_display
+                item: playerdoll:doll_limb
+                copy_data:
+                  - minecraft:profile
+                scale: 0.3125,0.6875,0.3125
+                translation: 0.09125,-5119.92188,-0.01887
+                rotation: -90,22.5,0
+              # 右手持物
+              - type: item_display
+                item: playerdoll:doll_right_hand_item
+                copy_data:
+                  - minecraft:custom_model_data
+                display_transform: third_person_right_hand
+                scale: 0.5,0.5,0.5
+                translation: -0.28768,0.10442,-0.0064
+                rotation: 75,0,7.5
+              # 左手持物
+              - type: item_display
+                item: playerdoll:doll_left_hand_item
+                copy_data:
+                  - minecraft:custom_model_data
+                display_transform: third_person_left_hand
+                scale: 0.5,0.5,0.5
+                translation: 0.28768,0.10438,-0.0064
+                rotation: 75,0,-7.5
+            hitboxes:
+              - type: interaction
+                position: 0,0,0
+                width: 0.7
+                height: 0.9
+                interactive: true
+                invisible: true
+                blocks_building: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: playerdoll:player_doll
+
+  playerdoll:doll_head:
+    material: player_head
+    model:
+      type: minecraft:special
+      path: minecraft:item/custom/player_doll_head
+      generation:
+        parent: minecraft:item/template_skull
+      model:
+        type: minecraft:player_head
+      transformation:
+        left_rotation: 0,0,1,0
+        translation: 0.5,0.5,0.5
+
+  playerdoll:doll_limb:
+    material: player_head
+    model:
+      type: minecraft:special
+      path: minecraft:item/custom/player_doll_limb
+      generation:
+        parent: minecraft:item/template_skull
+      model:
+        type: minecraft:player_head
+      transformation:
+        left_rotation: 0,0,1,0
+        translation: 0.5,0,0.5
+
+  # 玩偶手里拿的东西
+  # 由玩偶物品的 minecraft:custom_model_data 组件决定：strings[0] = 右手，strings[1] = 左手
+  # 添加新物品在 playerdoll:model/doll_hand_item 的 cases 里参考格式添加一行
+  # path 填原版（或资源包里）的物品模型，when 填想用的名字
+  playerdoll:doll_right_hand_item:
+    material: paper
+    model:
+      template: playerdoll:model/doll_hand_item
+      arguments:
+        index: 0
+
+  playerdoll:doll_left_hand_item:
+    material: paper
+    model:
+      template: playerdoll:model/doll_hand_item
+      arguments:
+        index: 1
+
+templates:
+  playerdoll:model/doll_hand_item:
+    type: minecraft:select
+    property: minecraft:custom_model_data
+    index: ${index}
+    fallback:
+      type: minecraft:empty
+    cases:
+      # 剑
+      - { when: wooden_sword, model: { path: minecraft:item/wooden_sword } }
+      - { when: stone_sword, model: { path: minecraft:item/stone_sword } }
+      - { when: copper_sword, model: { path: minecraft:item/copper_sword } }
+      - { when: iron_sword, model: { path: minecraft:item/iron_sword } }
+      - { when: golden_sword, model: { path: minecraft:item/golden_sword } }
+      - { when: diamond_sword, model: { path: minecraft:item/diamond_sword } }
+      - { when: netherite_sword, model: { path: minecraft:item/netherite_sword } }
+      # 斧
+      - { when: wooden_axe, model: { path: minecraft:item/wooden_axe } }
+      - { when: stone_axe, model: { path: minecraft:item/stone_axe } }
+      - { when: copper_axe, model: { path: minecraft:item/copper_axe } }
+      - { when: iron_axe, model: { path: minecraft:item/iron_axe } }
+      - { when: golden_axe, model: { path: minecraft:item/golden_axe } }
+      - { when: diamond_axe, model: { path: minecraft:item/diamond_axe } }
+      - { when: netherite_axe, model: { path: minecraft:item/netherite_axe } }
+      # 镐
+      - { when: wooden_pickaxe, model: { path: minecraft:item/wooden_pickaxe } }
+      - { when: stone_pickaxe, model: { path: minecraft:item/stone_pickaxe } }
+      - { when: copper_pickaxe, model: { path: minecraft:item/copper_pickaxe } }
+      - { when: iron_pickaxe, model: { path: minecraft:item/iron_pickaxe } }
+      - { when: golden_pickaxe, model: { path: minecraft:item/golden_pickaxe } }
+      - { when: diamond_pickaxe, model: { path: minecraft:item/diamond_pickaxe } }
+      - { when: netherite_pickaxe, model: { path: minecraft:item/netherite_pickaxe } }
+      # 锹/锄
+      - { when: iron_shovel, model: { path: minecraft:item/iron_shovel } }
+      - { when: diamond_shovel, model: { path: minecraft:item/diamond_shovel } }
+      - { when: netherite_shovel, model: { path: minecraft:item/netherite_shovel } }
+      - { when: iron_hoe, model: { path: minecraft:item/iron_hoe } }
+      - { when: diamond_hoe, model: { path: minecraft:item/diamond_hoe } }
+      - { when: netherite_hoe, model: { path: minecraft:item/netherite_hoe } }
+      # 矛
+      - { when: iron_spear, model: { path: minecraft:item/iron_spear_in_hand } }
+      - { when: diamond_spear, model: { path: minecraft:item/diamond_spear_in_hand } }
+      - { when: netherite_spear, model: { path: minecraft:item/netherite_spear_in_hand } }
+      # 其他武器/工具
+      - { when: mace, model: { path: minecraft:item/mace } }
+      - { when: bow, model: { path: minecraft:item/bow } }
+      - { when: crossbow, model: { path: minecraft:item/crossbow } }
+      - { when: fishing_rod, model: { path: minecraft:item/fishing_rod } }
+      - { when: carrot_on_a_stick, model: { path: minecraft:item/carrot_on_a_stick } }
+      - { when: brush, model: { path: minecraft:item/brush } }
+      - { when: shears, model: { path: minecraft:item/shears } }
+      - { when: flint_and_steel, model: { path: minecraft:item/flint_and_steel } }
+      # 盾牌/三叉戟
+      - when: shield
+        model:
+          type: minecraft:special
+          path: minecraft:item/shield
+          model:
+            type: minecraft:shield
+          transformation:
+            scale: 1,-1,-1
+      - when: trident
+        model:
+          type: minecraft:special
+          path: minecraft:item/trident_in_hand
+          model:
+            type: minecraft:trident
+          transformation:
+            scale: 1,-1,-1
+      # 杂物
+      - { when: stick, model: { path: minecraft:item/stick } }
+      - { when: blaze_rod, model: { path: minecraft:item/blaze_rod } }
+      - { when: breeze_rod, model: { path: minecraft:item/breeze_rod } }
+      - { when: bone, model: { path: minecraft:item/bone } }
+      - { when: torch, model: { path: minecraft:item/torch } }
+      - { when: soul_torch, model: { path: minecraft:item/soul_torch } }
+      - { when: lantern, model: { path: minecraft:item/lantern } }
+      - { when: soul_lantern, model: { path: minecraft:item/soul_lantern } }
+      - { when: totem_of_undying, model: { path: minecraft:item/totem_of_undying } }
+      - { when: book, model: { path: minecraft:item/book } }
+      - { when: writable_book, model: { path: minecraft:item/writable_book } }
+      - { when: name_tag, model: { path: minecraft:item/name_tag } }
+      - { when: feather, model: { path: minecraft:item/feather } }
+      - { when: diamond, model: { path: minecraft:item/diamond } }
+      - { when: emerald, model: { path: minecraft:item/emerald } }
+      # 食物/花
+      - { when: apple, model: { path: minecraft:item/apple } }
+      - { when: golden_apple, model: { path: minecraft:item/golden_apple } }
+      - { when: bread, model: { path: minecraft:item/bread } }
+      - { when: cookie, model: { path: minecraft:item/cookie } }
+      - { when: cake, model: { path: minecraft:item/cake } }
+      - { when: poppy, model: { path: minecraft:item/poppy } }
+      - { when: dandelion, model: { path: minecraft:item/dandelion } }
