@@ -7,6 +7,8 @@ You can also configure custom items for the doll to hold, allowing for more vari
 > PlayerDoll relies on a custom Shader included in the resource pack to render player skins. Due to Iris's Shader loading mechanism, when a shader pack is enabled, custom Shaders provided by resource packs will be ignored and replaced by the Shaders provided by the shader pack.  
 > Due to the way PlayerDoll is implemented, this limitation cannot be resolved through configuration.
 
+![PlayerDoll Preview](image.png)
+
 ## Installation
 
 1. Place the entire `PlayerDoll` folder into: `plugins/CraftEngine/resources/`
